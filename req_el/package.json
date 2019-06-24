@@ -1,0 +1,30 @@
+{
+  "name": "req_el",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
+    "visualize": "meteor --production --extra-packages bundle-visualizer"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.3.4",
+    "antd": "^3.19.6",
+    "babel-plugin-import": "^1.12.0",
+    "bcrypt": "^3.0.6",
+    "indexof": "0.0.1",
+    "meteor-node-stubs": "^0.4.1",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-flexbox-grid": "^2.1.2",
+    "react-router-dom": "^5.0.1",
+    "react-toolbox": "^2.0.0-beta.13"
+  },
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.jsx",
+      "server": "server/main.js"
+    },
+    "testModule": "tests/main.js"
+  }
+}
