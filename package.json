@@ -17,6 +17,7 @@
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-flexbox-grid": "^2.1.2",
+    "react-infinite-scroller": "^1.2.4",
     "react-router-dom": "^5.0.1",
     "react-toolbox": "^2.0.0-beta.13"
   },

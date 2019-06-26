@@ -1,0 +1,10 @@
+.questions{
+    overflow-y: scroll;
+    height: 70vh;
+    padding-left: 10px;
+    padding-right: 5px;
+}
+.question{
+    width: 100%;
+    border-color: black;
+}

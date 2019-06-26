@@ -5,9 +5,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Layout, Menu, Icon } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import './mainPage.css';
-import LogInForm from './forms/login';
+
 import AddProject from './forms/addProject';
 import AddQuestions from './forms/addQuestions';
+import Add from './forms/addition';
+import CreateInterview from './users/developer/createInterview';
 
 class MainPage extends Component {
   render() {
@@ -56,6 +58,8 @@ class MainPage extends Component {
             <div>
                     <Route exact path="/account/add_project" component={AddProject} />
                     <Route exact path="/account/add_questions" component={AddQuestions} />
+                    <Route exact path="/account/addition" component={Add} />
+                    <Route exact path="/account/create_interview" component={CreateInterview} />
             </div>
             </div>
           </Content>
