@@ -10,6 +10,7 @@ import AddProject from './forms/addProject';
 import AddQuestions from './forms/addQuestions';
 import Add from './forms/addition';
 import CreateInterview from './users/developer/createInterview';
+import ShowQuestions from './users/sth/showQuestions';
 
 class MainPage extends Component {
   render() {
@@ -57,9 +58,12 @@ class MainPage extends Component {
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
             <div>
                     <Route exact path="/account/add_project" component={AddProject} />
+
                     <Route exact path="/account/add_questions" component={AddQuestions} />
                     <Route exact path="/account/addition" component={Add} />
+
                     <Route exact path="/account/create_interview" component={CreateInterview} />
+                    <Route exact path="/account/show_questions" component={ShowQuestions} />
             </div>
             </div>
           </Content>

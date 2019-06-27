@@ -25,12 +25,13 @@ class CreateInterview extends Component{
             </Col>
 
             <Col xs={14}>
-                <div>Questions</div>
+                <h3 style={{paddingLeft: 10}}>Questions</h3>
                 <div className="questions">
                 <List
+                grid={{  column: 1 }}
                 dataSource={this.props.questions}
                 size="small"
-                renderItem={(item, index)=> (
+                renderItem={(item)=> (
                     <List.Item>
                         <QuestionBox {...item} />
                     </List.Item>

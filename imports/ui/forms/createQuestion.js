@@ -11,10 +11,6 @@ class Question extends Component{
         const { form } = this.props;
         // can use data-binding to get
         const keys = form.getFieldValue('keys');
-        // We need at least one passenger
-        if (keys.length === 1) {
-          return;
-        }
         // can use data-binding to set
         form.setFieldsValue({
           keys: keys.filter(key => key !== k),
@@ -79,20 +75,19 @@ class Question extends Component{
                 },
               ],
             })(<Input placeholder="your answer " style={{ width: '60%', marginRight: 2 }} />)}
-            {keys.length > 1 ? (
-              <Icon
-                className="dynamic-delete-button"
-                type="minus-circle-o"
-                onClick={() => this.remove(k)}
-              />
-            ) : null}
+            
+            <Icon
+              className="dynamic-delete-button"
+              type="minus-circle-o"
+              onClick={() => this.remove(k)}
+            />
           </Form.Item>
         ));
 
         return (
           <Form onSubmit={this.handleSubmit} className="login-form">
 
-            <p>Question addition</p>
+            <h3>Question addition</h3>
 
             <Form.Item style={{ marginBottom: 5}}>
               {getFieldDecorator('question', {
