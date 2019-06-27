@@ -45,7 +45,7 @@ class MainPage extends Component {
             </Menu.Item>
             <Menu.Item key="4">
               <Icon type="user" />
-              <span className="nav-text">Sth</span>
+              <span className="nav-text">Stackholder</span>
             </Menu.Item>
           </Menu>
         </Sider>

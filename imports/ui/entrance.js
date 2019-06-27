@@ -18,7 +18,7 @@ class Entrance extends Component{
             <Col className="left_block" xs={6}>
             <div className="info">
                 <h1>REQUIREMENTS ELICITATOR</h1>
-                <span>Application that makes it easier for developer to gather reauirements</span>
+                <span>Application that makes it easier for developer to gather requirements</span>
             </div>
             </Col>
           }

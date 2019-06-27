@@ -98,7 +98,7 @@ class RegForm extends Component{
                   { required: true, message: 'Please select your type!', type: 'array' },
                 ],
               })(
-                <Select mode="multiple" placeholder="Select Type">
+                <Select mode="multiple" placeholder="⠀⠀Select Type">
                   <Option value="dev">Developer</Option>
                   <Option value="cust">Customer</Option>
                   <Option value="sth">Stakeholder/enduser</Option>
