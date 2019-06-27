@@ -10,34 +10,30 @@ import {
 } from 'antd';
 
 
+
 class RegForm extends Component{
-    handleSubmitHendler(event) {
+    handleSubmit = (event) => {
+      event.preventDefault();
+        this.props.form.validateFields((err, values) => {
+          if (!err) {
+            Meteor.call('addUser',values, (err)=>
+            {
+              if(err)
+                alert(err);
+              else{
+                Meteor.loginWithPassword(values.username, values.password);
+                this.props.history.push('/');
+              }
+    
+            });
+          }
+        });
+      };
 
-        var chosen_values = [];
-        event.target.elements.sth[0].checked ? chosen_values.push(event.target.elements.sth[0].value) : null;
-        event.target.elements.sth[1].checked ? chosen_values.push(event.target.elements.sth[1].value) : null;
-        event.target.elements.sth[2].checked ? chosen_values.push(event.target.elements.sth[2].value) : null;
-
-        event.preventDefault();
-        const values = {
-            username: event.target.elements.username.value,
-            email: event.target.elements.email.value,
-            password: event.target.elements.password.value,
-            userType: chosen_values,
-            name: event.target.elements.name.value,
-            surname: event.target.elements.surname.value
-        }
-
-        console.log(chosen_values);
-
-        const account = {
-            email: event.target.elements.email.value,
-            password: event.target.elements.password.value,
-        };
-        
-        Meteor.call('addUser', values);
-
+    handleBack = () => {
+        this.props.history.push('/auth/login/');
     }
+
     render(){
         const { getFieldDecorator } = this.props.form;
         return(
@@ -75,8 +71,8 @@ class RegForm extends Component{
             </Form.Item>
 
             <Form.Item style={{ marginBottom: 5}}>
-                {getFieldDecorator('username', {
-                    rules: [{ required: true, message: 'Please input your username!' }],
+                {getFieldDecorator('name', {
+                    rules: [{ required: true, message: 'Please input your name!' }],
                 })(
                     <Input
                     prefix={<Icon type="name" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -86,8 +82,8 @@ class RegForm extends Component{
             </Form.Item>
 
             <Form.Item style={{ marginBottom: 5}}>
-                {getFieldDecorator('username', {
-                    rules: [{ required: true, message: 'Please input your username!' }],
+                {getFieldDecorator('surname', {
+                    rules: [{ required: true, message: 'Please input your surname!' }],
                 })(
                     <Input
                     prefix={<Icon type="surname" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -97,9 +93,9 @@ class RegForm extends Component{
             </Form.Item>
 
             <Form.Item style={{ marginBottom: 5}}>
-              {getFieldDecorator('select-multiple', {
+              {getFieldDecorator('userType', {
                 rules: [
-                  { required: true, message: 'Please select your favourite colors!', type: 'array' },
+                  { required: true, message: 'Please select your type!', type: 'array' },
                 ],
               })(
                 <Select mode="multiple" placeholder="Select Type">
@@ -113,7 +109,7 @@ class RegForm extends Component{
 
             <Form.Item style={{ marginBottom: 5}}>
               {getFieldDecorator('password', {
-                rules: [{ required: true, message: 'Please input your Password!' }],
+                rules: [{ required: true, message: 'Please input your password!' }],
               })(
                 <Input
                   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -126,7 +122,7 @@ class RegForm extends Component{
 
             <Form.Item style={{ marginBottom: 5}}>
               {getFieldDecorator('password', {
-                rules: [{ required: true, message: 'Please input your Password!' }],
+                rules: [{ required: true, message: 'Please repeat your password!' }],
               })(
                 <Input
                   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -140,7 +136,7 @@ class RegForm extends Component{
               <Button type="primary" htmlType="submit" className="login-form-button">
                 REGISTER
               </Button>
-              <Button style={{marginLeft:5}}>
+              <Button style={{marginLeft:5}} onClick={this.handleBack.bind(this)}>
                 Log in
               </Button>
             </Form.Item>

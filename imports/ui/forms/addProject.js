@@ -5,14 +5,73 @@ import { Form, Icon, Input, Button, Select, Card} from 'antd';
 const { TextArea } = Input;
 const { Option } = Select;
 import { Grid, Row, Col } from 'react-flexbox-grid';
+import Profile from "../../api/models/profile";
+
+
 
 class NormalLoginForm extends Component{
 
     handleSubmit = e => {
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
+        if (!err) {
+          console.log(values);
+          Meteor.call('addProject',values)
+        }
       });
     };
+
+
+    getDevelopers = () => {
+      var profile = Profile.find({userType: ['dev']}).fetch().map(e => [e.userID, e.name]);
+      profile = profile.concat(Profile.find({userType: ['dev', 'cust']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['cust', 'dev']}).fetch().map(e => [e.userID, e.name]));
+
+      profile = profile.concat(Profile.find({userType: ['dev', 'sth']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['sth', 'dev']}).fetch().map(e => [e.userID, e.name]));
+
+      profile = profile.concat(Profile.find({userType: ['dev', 'cust', 'sth']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['dev', 'sth', 'cust']}).fetch().map(e => [e.userID, e.name]));
+
+      profile = profile.concat(Profile.find({userType: ['sth', 'dev', 'cust']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['sth', 'cust', 'dev']}).fetch().map(e => [e.userID, e.name]));
+
+      profile = profile.concat(Profile.find({userType: ['cust', 'dev', 'sth']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['cust', 'sth', 'dev']}).fetch().map(e => [e.userID, e.name]));
+      
+      
+      return profile;
+    };
+
+    getStakeholders = () => {
+
+      var profile = Profile.find({userType: ['sth']}).fetch().map(e => [e.userID, e.name]);
+ 
+      profile = profile.concat(Profile.find({userType: ['cust']}).fetch().map(e => [e.userID, e.name]));
+
+      profile = profile.concat(Profile.find({userType: ['sth', 'cust']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['cust', 'sth']}).fetch().map(e => [e.userID, e.name]));
+
+      profile = profile.concat(Profile.find({userType: ['sth', 'dev']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['dev', 'sth']}).fetch().map(e => [e.userID, e.name]));
+      
+      profile = profile.concat(Profile.find({userType: ['dev', 'cust']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['cust', 'dev']}).fetch().map(e => [e.userID, e.name]));
+
+      profile = profile.concat(Profile.find({userType: ['dev', 'cust', 'sth']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['dev', 'sth', 'cust']}).fetch().map(e => [e.userID, e.name]));
+
+      profile = profile.concat(Profile.find({userType: ['sth', 'dev', 'cust']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['sth', 'cust', 'dev']}).fetch().map(e => [e.userID, e.name]));
+
+      profile = profile.concat(Profile.find({userType: ['cust', 'dev', 'sth']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['cust', 'sth', 'dev']}).fetch().map(e => [e.userID, e.name]));
+
+
+      return profile;
+    };
+
+
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
@@ -46,35 +105,34 @@ class NormalLoginForm extends Component{
             <Form.Item style={{ marginBottom: 5}}>
               {getFieldDecorator('dev', {
                 rules: [
-                  { required: true, message: 'Please select your favourite colors!', type: 'array' },
+                  { required: true, message: 'Please select developer!', type: 'array' },
                 ],
               })(
-                <Select placeholder="Select developer">
-                  <Option value="id1">Developer Nick</Option>
-                  <Option value="id2">Developer John</Option>
-                  <Option value="id3">Developer Kate</Option>
-                </Select>,
+                <Select mode="multiple" placeholder="Select developer">
+                {this.getDevelopers().map( e => {
+                  return <Option value = {e[0]}> {e[1]} </Option>
+                })}
+                </Select>
               )}
             </Form.Item>
 
             <Form.Item style={{ marginBottom: 5}}>
               {getFieldDecorator('sth', {
                 rules: [
-                  { required: true, message: 'Please select your favourite colors!', type: 'array' },
+                  { required: true, message: 'Please select stakeholder/end user!', type: 'array' },
                 ],
               })(
                 <Select mode="multiple" placeholder="Select stakeholder/end user">
-                  <Option value="id3">Bob</Option>
-                  <Option value="id4">Kris</Option>
-                  <Option value="id5">Anabel</Option>
-                </Select>,
+                {this.getStakeholders().map( e => {
+                  return <Option value = {e[0]}> {e[1]} </Option>
+                })}
+                </Select>
               )}
             </Form.Item>
 
             <Form.Item style={{ marginBottom: 5}}>
-              {getFieldDecorator('com', {
-                rules: [{ required: true, message: 'Please input your username!' }],
-              })(
+              {getFieldDecorator('com')
+              (
                 <TextArea 
                 rows={4} 
                 placeholder="Comments"
@@ -94,4 +152,5 @@ class NormalLoginForm extends Component{
 }
 
 const AddProject = Form.create({ name: 'normal_login' })(NormalLoginForm);
-export default AddProject;
+
+export default AddProject

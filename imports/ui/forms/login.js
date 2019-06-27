@@ -18,6 +18,10 @@ class NormalLoginForm extends Component{
         }
       });
     };
+
+    handleBack = () => {
+      this.props.history.push('/auth/reg');
+  }
     
     /*
       handleSubmitHendler(event) {
@@ -99,7 +103,7 @@ class NormalLoginForm extends Component{
               <Button type="primary" htmlType="submit" className="login-form-button">
                 LOGIN
               </Button>
-              <Button style={{marginLeft:5}}>
+              <Button style={{marginLeft:5}} onClick={this.handleBack.bind(this)}>
                 Register
               </Button>
             </Form.Item>
