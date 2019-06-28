@@ -16,7 +16,9 @@ class NormalLoginForm extends Component{
       this.props.form.validateFields((err, values) => {
         if (!err) {
           console.log(values);
-          Meteor.call('addProject',values)
+          values['customer'] = Meteor.userId();
+          Meteor.call('addProject',values);
+          this.props.form.resetFields();
         }
       });
     };
@@ -75,7 +77,6 @@ class NormalLoginForm extends Component{
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-          <Col  xs={6}>
           <Form onSubmit={this.handleSubmit} className="login-form">
 
             Add project
@@ -146,7 +147,6 @@ class NormalLoginForm extends Component{
               </Button>
             </Form.Item>
           </Form>
-          </Col>
         );
       }
 }

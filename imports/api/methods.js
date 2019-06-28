@@ -3,6 +3,7 @@ import Profile from './models/profile';
 import { Meteor } from 'meteor/meteor';
 import {updateObject} from "./utility";
 import Project from './models/project';
+import Question from './models/question';
 
 
 Meteor.methods({
@@ -56,7 +57,8 @@ Meteor.methods({
       description: values.desc,
       developerID: values.dev,
       stakeholderID: values.sth,
-      comments: values.com
+      comments: values.com,
+      customerID: values.customer,
     });
   },
 
@@ -75,3 +77,17 @@ Meteor.methods({
   },
 
 });
+
+
+Meteor.methods({
+  'addQuestion'(values){
+      let question = new Question({
+          question: values.question,
+          answers: values.answer,
+          users: values.users,
+          projectID: values.projectID,
+      });
+      question.save();
+      console.log('Question Added');
+  },
+})

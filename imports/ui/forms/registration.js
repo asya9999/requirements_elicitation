@@ -22,7 +22,7 @@ class RegForm extends Component{
                 alert(err);
               else{
                 Meteor.loginWithPassword(values.username, values.password);
-                this.props.history.push('/');
+                this.props.history.push('/auth/login/');
               }
     
             });
@@ -121,7 +121,7 @@ class RegForm extends Component{
 
 
             <Form.Item style={{ marginBottom: 5}}>
-              {getFieldDecorator('password', {
+              {getFieldDecorator('password_repeat', {
                 rules: [{ required: true, message: 'Please repeat your password!' }],
               })(
                 <Input
