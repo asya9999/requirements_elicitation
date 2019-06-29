@@ -46,7 +46,10 @@ class Developer extends Component{
                                     style={{paddingRight: 10}} 
                                     onClick = {() => this.props.history.push(`/account/developer/questions/${item._id}`)}
                                 >Questions</a>
-                                <a href="#">Check answers</a>
+                                <a 
+                                    style={{paddingRight: 10}} 
+                                    onClick = {() => this.props.history.push(`/account/developer/check_answers/${item._id}`)}
+                                >Check answers</a>
                             </div>
                         } 
                     >

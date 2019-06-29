@@ -7,22 +7,49 @@ import '../users.css';
 const { Text } = Typography;
 
 import Question from '../../../api/models/question';
+import Project from '../../../api/models/project';
+
 import CreateQuestion from '../../forms/createQuestion';
 import QuestionBox from './question';
+import { element } from 'prop-types';
 
 
 class CreateInterview extends Component{
 
+
+    create_list_of_users(){
+        const project = this.props.projects.filter( el => el._id == this.props.match.params.id)[0];
+        let users = project.stakeholderID;
+        users.push(project.customerID);
+        users = users.filter(function(item, pos) {
+            return users.indexOf(item) == pos;
+        });
+        console.log("users");
+        users = users.map(
+            function(el){
+                return {
+                    id: el,
+                    name: Meteor.users.find({"_id": el}).fetch()[0].username
+                }
+            }
+        );
+        console.log(users)
+        console.log(Meteor.users.find());
+        return users;
+    }
+
     render(){
-        
-        console.log(this.props.questions);
+
+        const users = this.create_list_of_users();
+        //console.log(project);
+        //console.log(this.props.questions);
 
         return(
 
             <Row center="xs">
 
             <Col xs={10}>
-                <CreateQuestion projectID={this.props.match.params.id}/>
+                <CreateQuestion users={users} projectID={this.props.match.params.id}/>
             </Col>
 
             <Col xs={14}>
@@ -51,6 +78,7 @@ export default withTracker(() => {
     return {
       currentUser: Meteor.user(),
       questions: Question.find({}).fetch(),
+      projects: Project.find({}).fetch(),
       //users: Meteor.users.find().fetch(),
     };
   })(withRouter(CreateInterview));

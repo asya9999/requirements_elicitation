@@ -12,10 +12,6 @@ import AddProject from '../../forms/addProject';
 
 class Customer extends Component{
 
-    answer = () => {
-        console.log("answer question")
-    }
-
     showModal = () => {
         console.log("modify question")
     }
@@ -50,7 +46,9 @@ class Customer extends Component{
                             title={item.title}
                             extra={
                                 <div>
-                                    <Icon onClick={ () => this.answer()} type="message" style={{marginRight: 10}}/>
+                                    <Icon onClick={ 
+                                        () => this.props.history.push(`/account/customer/questions/${item._id}`)
+                                    } type="message" style={{marginRight: 10}}/>
                                     <Icon onClick={ () => this.showModal()} type="setting" style={{marginRight: 10}}/>
                                     <Icon onClick={ () => this.deleteProject(item._id)} type="minus-circle-o"/>
                                 </div>

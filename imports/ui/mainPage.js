@@ -16,12 +16,16 @@ import Customer from './users/customer/customer';
 
 import Developer from './users/developer/developer';
 import CreateInterview from './users/developer/createInterview';
+import ShowQuestions from './users/sth/showQuestions';
+import ShowAnswers from './users/developer/showAnswers';
 
 class MainPage extends Component {
   render() {
 
     const user_profile = this.props.profile[0];
     if(this.props.currentUser){
+      console.log("user");
+      console.log(this.props.currentUser);
       //console.log(this.props.profile);
     return (
         <Layout style={{height:"100vh"}}>
@@ -90,6 +94,8 @@ class MainPage extends Component {
                     <Route exact path="/account/developer" component={Developer} />
 
                     <Route exact path='/account/developer/questions/:id' component={CreateInterview} />
+                    <Route exact path='/account/developer/check_answers/:id' component={ShowAnswers} />
+                    <Route exact path='/account/customer/questions/:id' component={ShowQuestions} />
             </div>
             </div>
           </Content>

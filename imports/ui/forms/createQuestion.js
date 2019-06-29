@@ -37,6 +37,7 @@ class Question extends Component{
             console.log('Received values of form: ', values);
             values['projectID'] = this.props.projectID;
             Meteor.call('addQuestion', values);
+            this.props.form.resetFields();
           //  console.log('Merged values:', keys.map(key => names[key]));
           }
         });
@@ -111,9 +112,7 @@ class Question extends Component{
                 ],
               })(
                 <Select mode="multiple" placeholder="Choose user">
-                  <Option value="id3">Bob</Option>
-                  <Option value="id4">Kris</Option>
-                  <Option value="id5">Anabel</Option>
+                  {this.props.users.map( user =>  <Option value={user.id}>{user.name}</Option> )}
                 </Select>,
               )}
             </Form.Item>

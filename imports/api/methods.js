@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import {updateObject} from "./utility";
 import Project from './models/project';
 import Question from './models/question';
+import Answer from './models/answer';
 
 
 Meteor.methods({
@@ -89,5 +90,19 @@ Meteor.methods({
       });
       question.save();
       console.log('Question Added');
+  },
+})
+
+Meteor.methods({
+  'addAnswer'(values){
+      let answer = new Answer({
+        questionID: values.questionID,
+        projectID: values.projectID,
+        userID: values.userID,
+        type: values.type,
+        answer: values.answer, 
+      });
+      answer.save();
+      console.log('Answer Added');
   },
 })
