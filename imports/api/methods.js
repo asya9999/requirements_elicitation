@@ -5,6 +5,7 @@ import {updateObject} from "./utility";
 import Project from './models/project';
 import Question from './models/question';
 import Answer from './models/answer';
+import Notification from './models/notification';
 
 
 Meteor.methods({
@@ -64,7 +65,10 @@ Meteor.methods({
   },
 
   'delProject'(projectID) {
-    Project.remove({_id: projectID})
+    Project.remove({_id: projectID});
+    Question.remove({projectID: projectID});
+    Answer.remove({projectID: projectID});
+    Notification.remove({projectID: projectID})
   },
 
 
@@ -91,7 +95,10 @@ Meteor.methods({
       question.save();
       console.log('Question Added');
   },
-})
+  'delQuestion'(questionID) {
+    Question.remove({_id: questionID})
+  },
+});
 
 Meteor.methods({
   'addAnswer'(values){
@@ -100,9 +107,32 @@ Meteor.methods({
         projectID: values.projectID,
         userID: values.userID,
         type: values.type,
-        answer: values.answer, 
+        answer: values.answer
       });
       answer.save();
       console.log('Answer Added');
   },
-})
+  'chooseAndComment'(values){
+    let answer = Answer.findOne({_id: values.id});
+    answer.comment = values.comment;
+    answer.save();
+  },
+  'delAnswer'(answerID) {
+    Answer.remove({_id: answerID})
+  },
+});
+
+Meteor.methods({
+  'addNotification'(values){
+      let notification = new Notification({
+        customerID: values.customerID,
+        answersID: values.answersID,
+        projectID: values.projectID,
+      });
+      notification.save();
+      console.log('Notification Added');
+  },
+  'delNotification'(noteID) {
+    Notification.remove({_id: noteID})
+  },
+});

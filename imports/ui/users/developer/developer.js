@@ -20,10 +20,6 @@ class Developer extends Component{
         console.log("modify question")
     }
 
-    //add DELETION from
-    deleteQuestion = (id) => {
-        console.log(id);
-    }
 
     render(){
         return(
@@ -54,10 +50,10 @@ class Developer extends Component{
                         } 
                     >
                         <Text style={{color: 'black'}}>Customer: </Text>
-                        <Text code>{item.customerID}</Text>
+                        <Text code>{Meteor.users.find({"_id": item.customerID}).fetch()[0].username}</Text>
                         <br />
                         <Text style={{color: 'black'}}>Stakeholders: </Text>
-                        {item.stakeholderID.map( user => <Text code>{user}</Text>)}
+                        {item.stakeholderID.map( user => <Text code>{Meteor.users.find({"_id": user}).fetch()[0].username}</Text>)}
                         <br />
                         <Text style={{color: 'black'}}>Description: </Text>
                         <Text>{item.description}</Text>

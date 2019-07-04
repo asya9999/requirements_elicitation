@@ -32,7 +32,7 @@ class QuestionBox extends Component{
   //add DELETION from
   deleteQuestion = (id) => {
     console.log(id);
-
+    Meteor.call("delQuestion", id);
   }
 
   render(){
@@ -48,7 +48,7 @@ class QuestionBox extends Component{
         </div>
       } 
       >
-        {values.users.map(user =><Text code>{user}</Text> )}    
+        {values.users.map(user =><Text code>{Meteor.users.find({"_id": user}).fetch()[0].username}</Text> )}    
         <ul style={{paddingLeft: 20}}>             
         {values.answers.map(answer => <li>{answer}</li>)}
         </ul>

@@ -24,6 +24,10 @@ const Answer = Class.create({
             type: String,
             optional: false,
         },
+        comment: {
+            type: String,
+            optional: true,
+        },
     }
 });
 

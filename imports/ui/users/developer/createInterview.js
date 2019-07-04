@@ -57,7 +57,7 @@ class CreateInterview extends Component{
                 <div className="questions">
                 <List
                 grid={{  column: 1 }}
-                dataSource={this.props.questions}
+                dataSource={this.props.questions.filter(el => el.projectID == this.props.match.params.id)}
                 size="small"
                 renderItem={(item)=> (
                     <List.Item>
