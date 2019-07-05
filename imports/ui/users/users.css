@@ -1,0 +1,19 @@
+.questions{
+    overflow-y: scroll;
+    height: 70vh;
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+.all_questions{
+    overflow-y: scroll;
+    height: 70vh;
+}
+
+.question{
+    width: 100%;
+    border-color: black;
+    padding: 5px;
+    border: 1px solid rgb(217, 217, 217);;
+    border-radius: 5px;
+}

@@ -4,10 +4,7 @@ import 'antd/dist/antd.css';
 import { Form, Icon, Input, Button, Select, Card} from 'antd';
 const { TextArea } = Input;
 const { Option } = Select;
-import { Grid, Row, Col } from 'react-flexbox-grid';
-import Profile from "../../api/models/profile";
-
-
+import Profile from '../../../api/models/project'
 
 class NormalLoginForm extends Component{
 
@@ -16,30 +13,30 @@ class NormalLoginForm extends Component{
       this.props.form.validateFields((err, values) => {
         if (!err) {
           console.log(values);
-          values['customer'] = Meteor.userId();
-          Meteor.call('addProject',values);
+          Meteor.call('editProject', this.props.match.params.id, values);
           this.props.form.resetFields();
+          this.props.history.push('/account/customer/')
         }
       });
     };
 
 
     getDevelopers = () => {
-      var profile = Profile.find({userType: ['dev']}).fetch().map(e => [e.userID, Meteor.users.find({"_id": e.userID}).fetch()[0].username]);
-      profile = profile.concat(Profile.find({userType: ['dev', 'cust']}).fetch().map(e => [e.userID, Meteor.users.find({"_id": e.userID}).fetch()[0].username]));
-      profile = profile.concat(Profile.find({userType: ['cust', 'dev']}).fetch().map(e => [e.userID, Meteor.users.find({"_id": e.userID}).fetch()[0].username]));
+      var profile = Profile.find({userType: ['dev']}).fetch().map(e => [e.userID, e.name]);
+      profile = profile.concat(Profile.find({userType: ['dev', 'cust']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['cust', 'dev']}).fetch().map(e => [e.userID, e.name]));
 
-      profile = profile.concat(Profile.find({userType: ['dev', 'sth']}).fetch().map(e => [e.userID, Meteor.users.find({"_id": e.userID}).fetch()[0].username]));
-      profile = profile.concat(Profile.find({userType: ['sth', 'dev']}).fetch().map(e => [e.userID, Meteor.users.find({"_id": e.userID}).fetch()[0].username]));
+      profile = profile.concat(Profile.find({userType: ['dev', 'sth']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['sth', 'dev']}).fetch().map(e => [e.userID, e.name]));
 
-      profile = profile.concat(Profile.find({userType: ['dev', 'cust', 'sth']}).fetch().map(e => [e.userID, Meteor.users.find({"_id": e.userID}).fetch()[0].username]));
-      profile = profile.concat(Profile.find({userType: ['dev', 'sth', 'cust']}).fetch().map(e => [e.userID, Meteor.users.find({"_id": e.userID}).fetch()[0].username]));
+      profile = profile.concat(Profile.find({userType: ['dev', 'cust', 'sth']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['dev', 'sth', 'cust']}).fetch().map(e => [e.userID, e.name]));
 
-      profile = profile.concat(Profile.find({userType: ['sth', 'dev', 'cust']}).fetch().map(e => [e.userID, Meteor.users.find({"_id": e.userID}).fetch()[0].username]));
-      profile = profile.concat(Profile.find({userType: ['sth', 'cust', 'dev']}).fetch().map(e => [e.userID, Meteor.users.find({"_id": e.userID}).fetch()[0].username]));
+      profile = profile.concat(Profile.find({userType: ['sth', 'dev', 'cust']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['sth', 'cust', 'dev']}).fetch().map(e => [e.userID, e.name]));
 
-      profile = profile.concat(Profile.find({userType: ['cust', 'dev', 'sth']}).fetch().map(e => [e.userID, Meteor.users.find({"_id": e.userID}).fetch()[0].username]));
-      profile = profile.concat(Profile.find({userType: ['cust', 'sth', 'dev']}).fetch().map(e => [e.userID, Meteor.users.find({"_id": e.userID}).fetch()[0].username]));
+      profile = profile.concat(Profile.find({userType: ['cust', 'dev', 'sth']}).fetch().map(e => [e.userID, e.name]));
+      profile = profile.concat(Profile.find({userType: ['cust', 'sth', 'dev']}).fetch().map(e => [e.userID, e.name]));
       
       
       return profile;
@@ -77,14 +74,13 @@ class NormalLoginForm extends Component{
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
+
           <Form onSubmit={this.handleSubmit} className="login-form">
 
-            Add project
+            Modify project
 
             <Form.Item style={{ marginBottom: 5}}>
-              {getFieldDecorator('title', {
-                rules: [{ required: true, message: 'Please input title!' }],
-              })(
+              {getFieldDecorator('title')(
                 <Input
                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                   placeholder="Title"
@@ -93,9 +89,7 @@ class NormalLoginForm extends Component{
             </Form.Item>
 
             <Form.Item style={{ marginBottom: 5}}>
-              {getFieldDecorator('desc', {
-                rules: [{ required: true, message: 'Please input description!' }],
-              })(
+              {getFieldDecorator('desc')(
                 <TextArea 
                 rows={4} 
                 placeholder="Description"
@@ -104,11 +98,7 @@ class NormalLoginForm extends Component{
             </Form.Item>
 
             <Form.Item style={{ marginBottom: 5}}>
-              {getFieldDecorator('dev', {
-                rules: [
-                  { required: true, message: 'Please select developer!', type: 'array' },
-                ],
-              })(
+              {getFieldDecorator('dev')(
                 <Select mode="multiple" placeholder="Select developer">
                 {this.getDevelopers().map( e => {
                   return <Option value = {e[0]}> {e[1]} </Option>
@@ -118,11 +108,7 @@ class NormalLoginForm extends Component{
             </Form.Item>
 
             <Form.Item style={{ marginBottom: 5}}>
-              {getFieldDecorator('sth', {
-                rules: [
-                  { required: true, message: 'Please select stakeholder/end user!', type: 'array' },
-                ],
-              })(
+              {getFieldDecorator('sth')(
                 <Select mode="multiple" placeholder="Select stakeholder/end user">
                 {this.getStakeholders().map( e => {
                   return <Option value = {e[0]}> {e[1]} </Option>
@@ -151,6 +137,6 @@ class NormalLoginForm extends Component{
       }
 }
 
-const AddProject = Form.create({ name: 'normal_login' })(NormalLoginForm);
+const ModifyProject = Form.create({ name: 'normal_login' })(NormalLoginForm);
 
-export default AddProject
+export default ModifyProject

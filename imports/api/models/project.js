@@ -24,6 +24,11 @@ const Project = Class.create({                  // Main class of users
         optional: false,
     },
 
+    customerID: {
+      type: String,
+      optional: false,
+    },
+
     stakeholderID: {
       type: [String],
       default: function() {return []},

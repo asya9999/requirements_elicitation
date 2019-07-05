@@ -11,10 +11,11 @@ class NormalLoginForm extends Component{
         if (!err) {
           console.log('Received values of form: ', values);
           Meteor.loginWithPassword(values.username, values.password, (err) => {
-            console.log(err);
+            if(!err)
+              this.props.history.push("/account/my_account");
+            else
+              this.props.form.resetFields();
           } );
-
-          this.props.history.push("/");
         }
       });
     };

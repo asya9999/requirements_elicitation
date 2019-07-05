@@ -22,7 +22,7 @@ class RegForm extends Component{
                 alert(err);
               else{
                 Meteor.loginWithPassword(values.username, values.password);
-                this.props.history.push('/');
+                this.props.history.push('/auth/login/');
               }
     
             });
@@ -98,7 +98,7 @@ class RegForm extends Component{
                   { required: true, message: 'Please select your type!', type: 'array' },
                 ],
               })(
-                <Select mode="multiple" placeholder="Select Type">
+                <Select mode="multiple" placeholder="⠀⠀Select Type">
                   <Option value="dev">Developer</Option>
                   <Option value="cust">Customer</Option>
                   <Option value="sth">Stakeholder/enduser</Option>
@@ -121,7 +121,7 @@ class RegForm extends Component{
 
 
             <Form.Item style={{ marginBottom: 5}}>
-              {getFieldDecorator('password', {
+              {getFieldDecorator('password_repeat', {
                 rules: [{ required: true, message: 'Please repeat your password!' }],
               })(
                 <Input
