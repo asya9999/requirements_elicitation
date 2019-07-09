@@ -76,9 +76,18 @@ Meteor.methods({
     let project = Project.findOne({_id:ID});
     console.log(values);
 
-    project = new Project({...updateObject(project,values)});
+    if (values.title)
+      project.title = values.title;
+    if (values.desc)
+      project.description = values.desc;
+    if (values.dev)
+      project.developerID = values.dev;
+    if (values.sth)
+      project.stakeholderID = values.sth;
+    if (values.com)
+      project.comments = values.com;
 
-    project.save();
+      project.save();
   },
 
 });
@@ -98,6 +107,18 @@ Meteor.methods({
   'delQuestion'(questionID) {
     Question.remove({_id: questionID})
   },
+
+  'editQuestion'(ID,values){
+    console.log('method', values);
+    let question = Question.findOne({_id:ID});
+
+    if (values.question)
+      question.question = values.question;
+    if (values.users)
+      question.users = values.users;
+
+    question.save()
+  }
 });
 
 Meteor.methods({

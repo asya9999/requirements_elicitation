@@ -17,6 +17,9 @@ import Customer from './users/customer/customer';
 import Developer from './users/developer/developer';
 import CreateInterview from './users/developer/createInterview';
 import ShowQuestions from './users/sth/showQuestions';
+import ModifyProject from './users/customer/modifyProject';
+import EditQuestion from './users/developer/editQuestion'
+
 import ShowAnswers from './users/developer/showAnswers';
 
 class MainPage extends Component {
@@ -96,6 +99,8 @@ class MainPage extends Component {
                     <Route exact path='/account/developer/questions/:id' component={CreateInterview} />
                     <Route exact path='/account/developer/check_answers/:id' component={ShowAnswers} />
                     <Route exact path='/account/customer/questions/:id' component={ShowQuestions} />
+                    <Route exact path='/account/customer/modify_project/:id' component={ModifyProject} />
+                    <Route exact path='/account/developer/questions/edit_question/:id' component={EditQuestion} />
             </div>
             </div>
           </Content>
