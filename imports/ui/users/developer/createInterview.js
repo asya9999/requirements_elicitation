@@ -16,6 +16,10 @@ import { element } from 'prop-types';
 
 class CreateInterview extends Component{
 
+    editQuestion = (id) => {
+        this.props.history.push(`/account/developer/questions/edit_question/${id}`)
+      }
+
 
     create_list_of_users(){
         const project = this.props.projects.filter( el => el._id == this.props.match.params.id)[0];
@@ -61,7 +65,7 @@ class CreateInterview extends Component{
                 size="small"
                 renderItem={(item)=> (
                     <List.Item>
-                        <QuestionBox {...item} />
+                        <QuestionBox {...item} edit={this.editQuestion} />
                     </List.Item>
                 )}
                 />

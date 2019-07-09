@@ -13,11 +13,6 @@ class ShowQuestions extends Component{
         const questions = this.props.questions
         .filter(el => el.projectID == this.props.match.params.id)
         .filter(el => el.users.includes(Meteor.userId()));
-        /*.filter(
-            el =>  {
-                el.projectID == this.props.match.params.id;
-            }
-            );*/
         return questions;
     }
 

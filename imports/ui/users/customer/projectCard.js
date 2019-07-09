@@ -103,7 +103,7 @@ class ProjectCard extends Component{
                 } type="message" style={{marginRight: 10}}/>
                 </Tooltip>
                 <Tooltip title="Modify">
-                <Icon onClick={ () => this.showModal()} type="setting" style={{marginRight: 10}}/>
+                <Icon onClick={ () => this.props.history.push(`/account/customer/modify_project/${item._id}`)} type="setting" style={{marginRight: 10}}/>
                 </Tooltip>
                 <Tooltip title="Delete">
                 <Icon onClick={ () => this.deleteProject(item._id)} type="minus-circle-o"/>

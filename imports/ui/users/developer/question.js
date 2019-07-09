@@ -35,6 +35,10 @@ class QuestionBox extends Component{
     Meteor.call("delQuestion", id);
   }
 
+  editQuestion = (id) => {
+    this.props.history.push(`/account/developer/questions/edit_question/${id}`)
+  }
+
   render(){
     const values = this.props;
     return(
@@ -43,7 +47,7 @@ class QuestionBox extends Component{
       title={values.question} 
       extra={
         <div>
-          <Icon onClick={this.showModal} type="setting" style={{marginRight: 10}}/>
+          <Icon onClick={ () => this.props.edit(values._id)} type="setting" style={{marginRight: 10}}/>
           <Icon onClick={ () => this.deleteQuestion(values._id)} type="minus-circle-o"/>
         </div>
       } 

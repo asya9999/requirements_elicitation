@@ -18,6 +18,7 @@ class NormalLoginForm extends Component{
           if (!err) {
             console.log('Received values of form: ', values);
             Meteor.call('editQuestion', this.props.match.params.id, values);
+            console.log(this.props.match.params.id),
             this.props.form.resetFields();
             this.props.history.push('/account/developer/')
           }

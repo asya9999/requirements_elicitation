@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import { Form, Icon, Input, Button, Select, Card} from 'antd';
 const { TextArea } = Input;
 const { Option } = Select;
-import Profile from '../../../api/models/project'
+import Profile from '../../../api/models/profile'
 
 class NormalLoginForm extends Component{
 
@@ -36,8 +36,7 @@ class NormalLoginForm extends Component{
       profile = profile.concat(Profile.find({userType: ['sth', 'cust', 'dev']}).fetch().map(e => [e.userID, e.name]));
 
       profile = profile.concat(Profile.find({userType: ['cust', 'dev', 'sth']}).fetch().map(e => [e.userID, e.name]));
-      profile = profile.concat(Profile.find({userType: ['cust', 'sth', 'dev']}).fetch().map(e => [e.userID, e.name]));
-      
+      profile = profile.concat(Profile.find({userType: ['cust', 'sth', 'dev']}).fetch().map(e => [e.userID, e.name]));      
       
       return profile;
     };

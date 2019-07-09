@@ -22,6 +22,8 @@ import EditQuestion from './users/developer/editQuestion'
 
 import ShowAnswers from './users/developer/showAnswers';
 
+import Stakeholder from './users/sth/sth';
+
 class MainPage extends Component {
   render() {
 
@@ -72,7 +74,7 @@ class MainPage extends Component {
 
             {
               user_profile.userType.includes('sth') ?
-            (<Menu.Item key="4">
+            (<Menu.Item key="4" onClick={() => this.props.history.push("/account/stakeholder")}>
               <Icon type="user" />
               <span className="nav-text">Stackholder</span>
             </Menu.Item>) : ("")
@@ -101,6 +103,9 @@ class MainPage extends Component {
                     <Route exact path='/account/customer/questions/:id' component={ShowQuestions} />
                     <Route exact path='/account/customer/modify_project/:id' component={ModifyProject} />
                     <Route exact path='/account/developer/questions/edit_question/:id' component={EditQuestion} />
+
+                    <Route exact path='/account/stakeholder' component={Stakeholder} />
+                    <Route exact path='/account/stakeholder/questions/:id' component={ShowQuestions} />
             </div>
             </div>
           </Content>
